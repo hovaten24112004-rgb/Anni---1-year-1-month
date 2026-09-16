@@ -68,7 +68,7 @@ border-radius:20px;padding:30px 24px 18px;color:#5a102a;line-height:1.75;font-fa
 <div id="phoneWrap">
   <div class="phone" id="phone">
     <div class="lock-bg" id="lockBg"></div><div class="lock-overlay"></div>
-    <div class="top"><div class="time" id="clock">16:08</div><div class="date">Thứ Sáu, 14 tháng 2</div></div>
+    <div class="top"><div class="time" id="clock">16:08</div><div class="date" id="phoneDate">Thứ Tư, 16 tháng 9 năm 2026</div></div>
     <div class="pass-area"><div class="title" id="passTitle">Nhập mật mã tình yêu 💕</div><div class="dots" id="dots"></div><div class="bears">🧸💗🧸</div></div>
     <div class="keypad" id="keypad"></div>
     <div class="bottom"><span>Khẩn cấp</span><span id="cancel">Hủy</span></div>
@@ -377,5 +377,18 @@ document.getElementById('startOverlay').onclick=async()=>{
   setTimeout(()=>{document.getElementById('startOverlay').style.display='none';},800);
 };
 </script>
+
+<script>
+// Ép ngày hiển thị luôn là 16/09/2026
+(function(){
+  const fixedDateText = 'Thứ Tư, 16 tháng 9 năm 2026';
+  const el = document.getElementById('phoneDate') || document.querySelector('.date');
+  if(el){ el.textContent = fixedDateText; }
+  // Nếu sau này có code nào đổi date thì vẫn giữ lại
+  const observer = new MutationObserver(()=>{ if(el && el.textContent !== fixedDateText) el.textContent = fixedDateText; });
+  if(el) observer.observe(el, {childList:true, characterData:true, subtree:true});
+})();
+</script>
 </body>
+
 </html>
